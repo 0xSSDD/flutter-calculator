@@ -149,43 +149,6 @@ class HomePageState extends State<HomePage> {
     });
   }
 
-  String getTape(){
-    return hist.join(" ");
-  }
-
-  bool isOperator(String s){
-    return (operators.contains(s));
-  }
-
-  bool isNumeric(String s) {
-    if(s == null) {
-      return false;
-    }
-    return double.parse(s) != null;
-  }
-
-  void equals(){
-    setState(() {
-      if (hist.length <= 3){
-        hist.add(output);
-      }
-      history = getTape() + " =";
-      var opr1, opr2, op;
-      opr1 = double.parse(hist.removeAt(0));
-      op = hist.removeAt(0);
-      opr2 = double.parse(hist.removeAt(0));
-      switch (op) {
-        case "+": answer = opr1 + opr2; break;
-        case "-": answer = opr1 - opr2; break;
-        case "×": answer = opr1 * opr2; break;
-        case "÷": answer = opr1 / opr2; break;
-        default:
-      }
-      output = answer.toString();
-      hist.insert(0, answer.toString());
-    });
-  }
-
   void add() {
     setState(() {
       answer = double.parse(output);
@@ -239,7 +202,84 @@ class HomePageState extends State<HomePage> {
     });
   }
 
- 
+  String getTape(){
+    return hist.join(" ");
+  }
+
+  bool isOperator(String s){
+    return (operators.contains(s));
+  }
+
+  bool isNumeric(String s) {
+    if(s == null) {
+      return false;
+    }
+    return double.parse(s) != null;
+  }
+
+  void equals(){
+    setState(() {
+      if (hist.length <= 3){
+        hist.add(output);
+      }
+      history = getTape() + " =";
+      var opr1, opr2, op;
+      opr1 = double.parse(hist.removeAt(0));
+      op = hist.removeAt(0);
+      opr2 = double.parse(hist.removeAt(0));
+      switch (op) {
+        case "+": answer = opr1 + opr2; break;
+        case "-": answer = opr1 - opr2; break;
+        case "×": answer = opr1 * opr2; break;
+        case "÷": answer = opr1 / opr2; break;
+        default:
+      }
+      output = answer.toString();
+      hist.insert(0, answer.toString());
+    });
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+          backgroundColor: Colors.red[700],
+          title: new Image.asset('assets/title.png')
+      ),
+      body: new Container(
+        child: new Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              new Padding(
+                padding: new EdgeInsets.only(top: 25.0, right: 15.0),
+                child: new Text(
+                  "$history",
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w200,
+                  ),
+                  textAlign: TextAlign.end,
+                ),
+              ),
+              new Padding(
+                padding: new EdgeInsets.only(top: 15.0, right: 15.0, bottom: 15.0),
+                child: new Text(
+                  "$output",
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 60.0,
+                    fontWeight: FontWeight.w100,
+                  ),
+                  textAlign: TextAlign.end,
+                ),
+              ),
+             
 
 
 
