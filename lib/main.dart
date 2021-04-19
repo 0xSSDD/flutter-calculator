@@ -164,7 +164,84 @@ class HomePageState extends State<HomePage> {
     return double.parse(s) != null;
   }
 
-  
+  void equals(){
+    setState(() {
+      if (hist.length <= 3){
+        hist.add(output);
+      }
+      history = getTape() + " =";
+      var opr1, opr2, op;
+      opr1 = double.parse(hist.removeAt(0));
+      op = hist.removeAt(0);
+      opr2 = double.parse(hist.removeAt(0));
+      switch (op) {
+        case "+": answer = opr1 + opr2; break;
+        case "-": answer = opr1 - opr2; break;
+        case "×": answer = opr1 * opr2; break;
+        case "÷": answer = opr1 / opr2; break;
+        default:
+      }
+      output = answer.toString();
+      hist.insert(0, answer.toString());
+    });
+  }
+
+  void add() {
+    setState(() {
+      answer = double.parse(output);
+      hist.add(output);
+      hist.add("+");
+      if (hist.length >= 3){
+        output = "0";
+        equals();
+      }
+      output="0";
+      history = getTape();
+    });
+  }
+  void sub() {
+    setState(() {
+      answer = double.parse(output);
+      hist.add(output);
+      hist.add("-");
+      if (hist.length >= 3){
+        output = "0";
+        equals();
+      }
+      output="0";
+      history = getTape();
+    });
+  }
+  void div() {
+    setState(() {
+      answer = double.parse(output);
+      hist.add(output);
+      hist.add("÷");
+      if (hist.length >= 3){
+        output = "0";
+        equals();
+      }
+      output="0";
+      history = getTape();
+    });
+  }
+  void mul() {
+    setState(() {
+      answer = double.parse(output);
+      hist.add(output);
+      hist.add("×");
+      if (hist.length >= 3){
+        output = "0";
+        equals();
+      }
+      output="0";
+      history = getTape();
+    });
+  }
+
+ 
+
+
 
 
 class MyApp extends StatelessWidget {
