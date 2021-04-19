@@ -114,8 +114,57 @@ class HomePageState extends State<HomePage> {
       }
     });
   }
-  
+  void clickDot() {
+    setState(() {
+      output += ".";
+    });
+  }
+  void clear() {
+    setState(() {
+      history = "";
+      output = "0";
+      answer = 0.0;
+      hist = [];
+    });
+  }
+  void sign() {
+    setState(() {
+      if (double.parse(output) == 0.0){}
+      else {
+        if (output[0] == '-'){
+          output = output.substring(1);
+        }
+        else {
+          output = '-' + output;
+        }
+      }
+    });
+  }
+  void percent() {
+    setState(() {
+      double percent = 0.0;
+      percent = answer/100;
+      history = answer.toString() + " ÷ 100 =";
+      output = percent.toString();
+    });
+  }
 
+  String getTape(){
+    return hist.join(" ");
+  }
+
+  bool isOperator(String s){
+    return (operators.contains(s));
+  }
+
+  bool isNumeric(String s) {
+    if(s == null) {
+      return false;
+    }
+    return double.parse(s) != null;
+  }
+
+  
 
 
 class MyApp extends StatelessWidget {
