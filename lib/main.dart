@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() => runApp(new MyApp());
 
@@ -142,10 +143,15 @@ class HomePageState extends State<HomePage> {
   }
   void percent() {
     setState(() {
-      double percent = 0.0;
-      percent = answer/100;
-      history = answer.toString() + " ÷ 100 =";
-      output = percent.toString();
+      answer = double.parse(output);
+      hist.add(output);
+      hist.add("^");
+      if (hist.length >= 3){
+        output = "0";
+        equals();
+      }
+      output="0";
+      history = getTape();
     });
   }
 
@@ -232,6 +238,7 @@ class HomePageState extends State<HomePage> {
         case "-": answer = opr1 - opr2; break;
         case "×": answer = opr1 * opr2; break;
         case "÷": answer = opr1 / opr2; break;
+        case "^": answer = pow(opr1, opr2); break;
         default:
       }
       output = answer.toString();
@@ -245,7 +252,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-          backgroundColor: Colors.red[700],
+          backgroundColor: Colors.white60,
           title: new Image.asset('assets/title.png')
       ),
       body: new Container(
@@ -279,7 +286,314 @@ class HomePageState extends State<HomePage> {
                   textAlign: TextAlign.end,
                 ),
               ),
-             
+              new Padding(
+                padding: new EdgeInsets.only(top: 15.0, left: 5.0),
+                child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      new RawMaterialButton(
+                        onPressed: clear,
+                        child: new Text("c",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.blueGrey[700],
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: sign,
+                        child: new Text("±",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.lightBlueAccent[700],
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: percent,
+                        child: new Text("^",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.lightBlueAccent[700],
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: div,
+                        child: new Text("÷",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              color: Colors.deepPurpleAccent[700],
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.white,
+                        highlightColor: Colors.deepPurpleAccent[100],
+                        splashColor: Colors.deepPurpleAccent[100],
+                        padding: const EdgeInsets.all(15.0),
+                      )
+                    ]
+                ),
+              ),
+              new Padding(
+                padding: new EdgeInsets.only(top: 15.0, left: 5.0),
+                child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      new RawMaterialButton(
+                        onPressed: click1,
+                        child: new Text("1",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: click2,
+                        child: new Text("2",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: click3,
+                        child: new Text("3",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: mul,
+                        child: new Text("×",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              color: Colors.deepPurpleAccent[700],
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.white,
+                        highlightColor: Colors.deepPurpleAccent[100],
+                        splashColor: Colors.deepPurpleAccent[100],
+                        padding: const EdgeInsets.all(15.0),
+                      )
+                    ]
+                ),
+              ),
+              new Padding(
+                padding: new EdgeInsets.only(top: 15.0, left: 5.0),
+                child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      new RawMaterialButton(
+                        onPressed: click4,
+                        child: new Text("4",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: click5,
+                        child: new Text("5",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: click6,
+                        child: new Text("6",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: sub,
+                        child: new Text("-",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              color: Colors.deepPurpleAccent[700],
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.white,
+                        highlightColor: Colors.deepPurpleAccent[100],
+                        splashColor: Colors.deepPurpleAccent[100],
+                        padding: const EdgeInsets.all(15.0),
+                      )
+                    ]
+                ),
+              ),
+              new Padding(
+                padding: new EdgeInsets.only(top: 15.0, left: 5.0),
+                child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      new RawMaterialButton(
+                        onPressed: click7,
+                        child: new Text("7",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: click8,
+                        child: new Text("8",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: click9,
+                        child: new Text("9",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: add,
+                        child: new Text("+",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              color: Colors.deepPurpleAccent[700],
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.white,
+                        highlightColor: Colors.deepPurpleAccent[100],
+                        splashColor: Colors.deepPurpleAccent[100],
+                        padding: const EdgeInsets.all(15.0),
+                      )
+                    ]
+                ),
+              ),
+              new Padding(
+                padding: new EdgeInsets.only(top: 15.0, left: 5.0, bottom: 6.0),
+                child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      new RawMaterialButton(
+                        onPressed: click0,
+                        child: new Text("0",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        constraints: BoxConstraints.tightFor(width: 170.0),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(45.0)
+                        ),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.only(left:18.0,top:15.0,bottom:15.0,right:15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: clickDot,
+                        child: new Text(".",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.black45,
+                        padding: const EdgeInsets.all(15.0),
+                      ),
+                      new RawMaterialButton(
+                        onPressed: equals,
+                        child: new Text("=",
+                          style: TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        shape: new CircleBorder(),
+                        elevation: 2.0,
+                        fillColor: Colors.deepPurpleAccent[700],
+                        padding: const EdgeInsets.all(15.0),
+                      )
+                    ]
+                ),
+              ),
+            ]
+        ),
+      ),
+    );
+  }
+}
 
 
 
