@@ -1,34 +1,19 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'converter-button.dart';
 import 'calculator.dart';
 import 'number-display.dart';
-import 'calculator-buttons.dart';
-import 'converter-page.dart';
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class ConverterPage extends StatefulWidget {
+  ConverterPage({Key key}): super(key:key);
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Calculator'),
-    );
-  }
+  _ConverterPageState createState() => _ConverterPageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _ConverterPageState extends State<ConverterPage> {
   bool isNewEquation = true;
   List<double> values = [];
   List<String> operations = [];
@@ -39,39 +24,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text('Converter'),
           centerTitle: false,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.car_rental),
-              onPressed: () {
-                _navigateAndDisplayConverter(context);
-              },
-            )
-          ],
         ),
         body: Column(
           children: <Widget>[
             NumberDisplay(value: calculatorString),
-            CalculatorButtons(onTap: _onPressed),
+            ConverterButtons(onTap: _onPressed),
           ],
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ));
   }
 
-  _navigateAndDisplayConverter(BuildContext context) async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ConverterPage())
-    );
 
-    if (result != null) {
-      setState(() {
-        isNewEquation = false;
-        calculatorString = Calculator.parseString(result);
-      });
-    }
-  }
 
   void _onPressed({String buttonText}) {
     // Standard mathematical operations
@@ -87,6 +52,22 @@ class _MyHomePageState extends State<MyHomePage> {
       return setState(() {
         operations.add(Calculations.CLEAR);
         calculatorString = "";
+      });
+    }
+    // On KM_MILE press
+    if (buttonText == Calculations.KM_MILE) {
+      return setState(() {
+       double km = double.parse(calculatorString);
+       double miles = km * 0.621371;
+       calculatorString = '${miles}';
+      });
+    }
+    // On MILE_KM press
+    if (buttonText == Calculations.MILE_KM) {
+      return setState(() {
+        double miles = double.parse(calculatorString);
+        double km = miles / 0.621371;
+        calculatorString = '${km}';
       });
     }
 
@@ -106,11 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
-    if (buttonText == Calculations.PERIOD) {
-      return setState(() {
-        calculatorString = Calculator.addPeriod(calculatorString);
-      });
-    }
+
 
     setState(() {
       if (!isNewEquation
