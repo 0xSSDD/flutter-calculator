@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _navigateAndDisplayHistory(BuildContext context) async {
     final result = await Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => History(operations: calculations))
+        MaterialPageRoute(builder: (context) => History(operations: calculations, timeStamp: _timeString,))
     );
 
     if (result != null) {
