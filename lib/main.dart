@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'calculator.dart';
 import 'number-display.dart';
 import 'calculator-buttons.dart';
 import 'converter-page.dart';
+import 'history.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -24,6 +27,7 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -34,6 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> operations = [];
   List<String> calculations = [];
   String calculatorString = '';
+  // var now = DateTime.now();
+  String _timeString = '';
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 _navigateAndDisplayConverter(context);
               },
-            )
+            ),
+            IconButton(
+                icon: Icon(Icons.history), onPressed: () {
+              _navigateAndDisplayHistory(context);
+            })
           ],
         ),
         body: Column(
@@ -59,10 +69,32 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
+  void _getTime() {
+    final String formattedDateTime =
+    DateFormat('yyyy-MM-dd kk:mm:ss').format(DateTime.now()).toString();
+    setState(() {
+      _timeString = formattedDateTime;
+      print(_timeString);
+    });
+  }
   _navigateAndDisplayConverter(BuildContext context) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ConverterPage())
+    );
+
+    if (result != null) {
+      setState(() {
+        isNewEquation = false;
+        calculatorString = Calculator.parseString(result);
+      });
+    }
+  }
+
+  _navigateAndDisplayHistory(BuildContext context) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => History(operations: calculations))
     );
 
     if (result != null) {
@@ -92,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // On Equals press
     if (buttonText == Calculations.EQUAL) {
+      _getTime();
       String newCalculatorString = Calculator.parseString(calculatorString);
 
       return setState(() {
@@ -103,6 +136,8 @@ class _MyHomePageState extends State<MyHomePage> {
         operations.add(Calculations.EQUAL);
         calculatorString = newCalculatorString;
         isNewEquation = false;
+        // operations.add(now.toString());
+        // print(operations);
       });
     }
 

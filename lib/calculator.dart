@@ -30,6 +30,7 @@ class Calculations {
 
 class Calculator {
   static String parseString(String text) {
+    // String modString = '';
     List<String> numbersToAdd;
     double a, b, result;
     if (text.contains(Calculations.ADD)) {
@@ -66,7 +67,7 @@ class Calculator {
     else {
       return text;
     }
-
+    // modString = result.toString()+'gg';
     return NumberFormatter.format(result.toString());
   }
 
