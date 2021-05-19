@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "410202459698",
+    "project_id": "calculator-euas",
+    "storage_bucket": "calculator-euas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410202459698:android:82554707eb7c36a2dbb62b",
+        "android_client_info": {
+          "package_name": "com.example.calculatorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410202459698-6nsva8ua5fothto518la1upkroc2ha50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJQTrU-vuYfYY0mO4d7ZXbzu6LTZJ7B7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410202459698-6nsva8ua5fothto518la1upkroc2ha50.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

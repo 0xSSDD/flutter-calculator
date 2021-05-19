@@ -5,7 +5,9 @@ import 'number-display.dart';
 import 'calculator-buttons.dart';
 import 'converter-page.dart';
 import 'history.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firestore_api.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,30 +45,68 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          centerTitle: false,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.car_rental),
-              onPressed: () {
-                _navigateAndDisplayConverter(context);
-              },
-            ),
-            IconButton(
-                icon: Icon(Icons.history), onPressed: () {
-              _navigateAndDisplayHistory(context);
-            })
-          ],
-        ),
-        body: Column(
-          children: <Widget>[
-            NumberDisplay(value: calculatorString),
-            CalculatorButtons(onTap: _onPressed),
-          ],
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        ));
+    return FutureBuilder<FirebaseApp>(
+        future: Firebase.initializeApp(),
+        builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text(widget.title),
+                  centerTitle: false,
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.car_rental),
+                      onPressed: () {
+                        _navigateAndDisplayConverter(context);
+                      },
+                    ),
+                    IconButton(
+                        icon: Icon(Icons.history), onPressed: () {
+                      _navigateAndDisplayHistory(context);
+                    })
+                  ],
+                ),
+                body: Column(
+                  children: <Widget>[
+                    NumberDisplay(value: calculatorString),
+                    CalculatorButtons(onTap: _onPressed),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ));
+        }
+    );
+  }
+  //   return Scaffold(
+  //       appBar: AppBar(
+  //         title: Text(widget.title),
+  //         centerTitle: false,
+  //         actions: <Widget>[
+  //           IconButton(
+  //             icon: Icon(Icons.car_rental),
+  //             onPressed: () {
+  //               _navigateAndDisplayConverter(context);
+  //             },
+  //           ),
+  //           IconButton(
+  //               icon: Icon(Icons.history), onPressed: () {
+  //             _navigateAndDisplayHistory(context);
+  //           })
+  //         ],
+  //       ),
+  //       body: Column(
+  //         children: <Widget>[
+  //           NumberDisplay(value: calculatorString),
+  //           CalculatorButtons(onTap: _onPressed),
+  //         ],
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       ));
+
+
+  addOperationsToSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('operations', operations.toString());
   }
 
   void _getTime() {
@@ -134,6 +174,14 @@ class _MyHomePageState extends State<MyHomePage> {
         }
 
         operations.add(Calculations.EQUAL);
+        // print('calculations');
+        //print(calculations);
+        // print('calcString');
+        //print(calculatorString);
+        // print('calcs-index');
+        print(newCalculatorString);
+        Map<String, dynamic> calcMap = {'key': calculatorString, 'result': newCalculatorString};
+        FirestoreApi().addData(calcMap);
         calculatorString = newCalculatorString;
         isNewEquation = false;
         // operations.add(now.toString());
