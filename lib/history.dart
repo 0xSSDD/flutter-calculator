@@ -1,27 +1,16 @@
-import 'dart:ffi';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'calculator.dart';
 import 'firestore_api.dart';
-import 'loader.dart';
 import 'CalculationObject.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 class History extends StatelessWidget {
   History({@required this.operations, @required this.timeStamp});
 
   final List<String> operations;
   final String timeStamp;
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('calculations').snapshots();
-
 
   @override
   Widget build(BuildContext context) {
-   // List<Map<String, dynamic>> calcFirestore = await FirestoreApi().readAllData();
-    // print('calcFirestore');
-    //print(calcFirestore);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,6 +23,7 @@ class History extends StatelessWidget {
     );
   }
 
+  // does not use firestore
   Widget _operationsList(List<String> operations) {
     
     return ListView.builder(
@@ -60,8 +50,8 @@ class History extends StatelessWidget {
     );
   }
 
+  // uses firestore
   Widget deserialize(BuildContext context) {
-    print('deserialize-check0');
 
     return Scaffold(
       body: Padding(
@@ -113,32 +103,5 @@ class History extends StatelessWidget {
       ),
     );
 
-}
-
-  @override
-  Widget fireDes(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
-
-        return new ListView(
-          children: snapshot.data.docs.map((DocumentSnapshot document) {
-            // CalculationObject tr = CalculationObject.fromJson(document);
-            return new ListTile(
-              title: new Text(document.data()),
-
-            );
-          }).toList(),
-        );
-      },
-    );
   }
-
 }

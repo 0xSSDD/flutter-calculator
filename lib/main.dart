@@ -78,30 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
         }
     );
   }
-  //   return Scaffold(
-  //       appBar: AppBar(
-  //         title: Text(widget.title),
-  //         centerTitle: false,
-  //         actions: <Widget>[
-  //           IconButton(
-  //             icon: Icon(Icons.car_rental),
-  //             onPressed: () {
-  //               _navigateAndDisplayConverter(context);
-  //             },
-  //           ),
-  //           IconButton(
-  //               icon: Icon(Icons.history), onPressed: () {
-  //             _navigateAndDisplayHistory(context);
-  //           })
-  //         ],
-  //       ),
-  //       body: Column(
-  //         children: <Widget>[
-  //           NumberDisplay(value: calculatorString),
-  //           CalculatorButtons(onTap: _onPressed),
-  //         ],
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       ));
 
 
   addOperationsToSF() async {
@@ -174,18 +150,13 @@ class _MyHomePageState extends State<MyHomePage> {
         }
 
         operations.add(Calculations.EQUAL);
-        // print('calculations');
-        //print(calculations);
-        // print('calcString');
-        //print(calculatorString);
-        // print('calcs-index');
+
         print(newCalculatorString);
         Map<String, dynamic> calcMap = {'key': calculatorString, 'result': newCalculatorString};
         FirestoreApi().addData(calcMap);
         calculatorString = newCalculatorString;
         isNewEquation = false;
-        // operations.add(now.toString());
-        // print(operations);
+
       });
     }
 
