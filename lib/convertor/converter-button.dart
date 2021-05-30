@@ -41,9 +41,9 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import 'calculator.dart';
-import 'calculator-button.dart';
-import 'calculator-row.dart';
+import '../calculator/calculator.dart';
+import '../calculator/calculator-button.dart';
+import '../calculator/calculator-row.dart';
 
 class ConverterButtons extends StatelessWidget {
   ConverterButtons({@required this.onTap});

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'calculator.dart';
-import 'number-display.dart';
-import 'calculator-buttons.dart';
-import 'converter-page.dart';
-import 'history.dart';
+import 'calculator/calculator.dart';
+import 'calculator/number-display.dart';
+import 'calculator/calculator-buttons.dart';
+import 'convertor/converter-page.dart';
+import 'calculator/history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firestore_api.dart';
+import 'services/firestore_api.dart';
 
 void main() => runApp(MyApp());
 

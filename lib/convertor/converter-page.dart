@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'converter-button.dart';
-import 'calculator.dart';
-import 'number-display.dart';
+import '../calculator/calculator.dart';
+import '../calculator/number-display.dart';
 
 
 class ConverterPage extends StatefulWidget {
