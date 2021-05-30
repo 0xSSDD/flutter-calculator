@@ -1,8 +1,8 @@
 export 'CalculationObject.dart';
-export 'calculator.dart';
-export 'calculator-button.dart';
-export 'calculator-buttons.dart';
-export 'calculator-row.dart';
-export 'history.dart';
-export 'number-display.dart';
-export 'number-formatter.dart';
+export 'Calculations.dart';
+export 'CalculatorButton.dart';
+export 'CalculatorButtons.dart';
+export 'CalculatorRow.dart';
+export 'CalculatorHistory.dart';
+export 'NumberDisplay.dart';
+export 'NumberFormatter.dart';

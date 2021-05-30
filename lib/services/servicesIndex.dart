@@ -1,2 +1,2 @@
-export 'firestore_api.dart';
-export 'loader.dart';
+export 'FirestoreApi.dart';
+export 'Loader.dart';
