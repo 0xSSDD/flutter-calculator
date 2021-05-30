@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'calculator.dart';
-import '../services/firestore_api.dart';
-import 'CalculationObject.dart';
+
+import 'calculatorIndex.dart';
+import '../services/servicesIndex.dart';
+
 
 class History extends StatelessWidget {
   History({@required this.operations, @required this.timeStamp});

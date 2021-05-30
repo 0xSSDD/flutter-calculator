@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'calculator.dart';
-import 'calculator-button.dart';
-import 'calculator-row.dart';
+import 'calculatorIndex.dart';
+
 
 class CalculatorButtons extends StatelessWidget {
   CalculatorButtons({@required this.onTap});

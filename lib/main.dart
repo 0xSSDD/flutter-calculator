@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'calculator/calculator.dart';
-import 'calculator/number-display.dart';
-import 'calculator/calculator-buttons.dart';
-import 'convertor/converter-page.dart';
-import 'calculator/history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'services/firestore_api.dart';
+
+import 'convertor/convertorIndex.dart';
+import 'calculator/calculatorIndex.dart';
+import 'services/servicesIndex.dart';
 
 void main() => runApp(MyApp());
 

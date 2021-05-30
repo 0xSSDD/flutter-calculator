@@ -1,4 +1,4 @@
-import 'number-formatter.dart';
+import 'calculatorIndex.dart';
 import 'dart:math';
 
 class Calculations {
