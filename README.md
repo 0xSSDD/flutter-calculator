@@ -1,16 +1,37 @@
-# calculatorapp
+# Calculator
+##### A Flutter calculator that uses Firestore and has KM-Mile convertor
 
-A new Flutter project.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Does basic arithmetic along with POW(^) calculations
+- Convert Km-Miles and vice-versa
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tech
+
+- Flutter 2.2.1 • channel stable • https://github.com/flutter/flutter.git
+- Engine • revision 0fdb562ac8
+- Tools • Dart 2.13.1
+
+
+
+## Installation
+
+Make sure you have flutter installed.
+Clone the repo and then,
+```sh
+> flutter run
+```
+
+## App screens
+Calulator screen/ Home Page:
+
+![HomePage](assets/images/HomePage.png)
+
+Convertor Page:
+![ConvertorPage](assets/images/ConvertorPage.png)
+
+History Page:
+![HistoryPage](assets/images/HistoryPage.png)
